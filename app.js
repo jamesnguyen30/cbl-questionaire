@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //Create tables
+//questions.createTable()
 //responses.createTable()
 
 app.use('/', indexRouter);

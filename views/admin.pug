@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .container-fluid
+        .row.flex-xl-nowrap
+            .col-md-4.col-xl-3.bd-sidebar
+                nav(style="border-right: 1px solid #d3d3d3")
+                    .p-4.pt-5
+                        h1 Admin
+                        .dropdown-divider
+                        ul.list-unstyled.components.mb-5
+                            li.active
+                                a(href="/admin") Questions 
+                            li
+                                a(href="/admin") Settings
+                            li
+                                a(href="/admin") ML Algorithm  
+            .col-md-9.col-xl-9.py-md-3.pl-md-9.bd-content
+                content.p-4.p-md-5.pt-5
+                    .container-fluid
+                        block admin-page
+                        

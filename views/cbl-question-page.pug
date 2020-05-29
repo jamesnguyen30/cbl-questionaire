@@ -1,0 +1,9 @@
+.container-fluid
+    .cbl-question-jumbotron
+        .cbl-question(id="question")
+            h1 Hello World
+        .cbl-response(id="response")
+            h6 Responses go here
+            each val in [1,2,3,4,5]
+                include cbl-choice.pug
+        

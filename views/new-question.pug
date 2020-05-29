@@ -1,0 +1,75 @@
+extends admin
+
+block script
+    script. 
+        var count = 1 
+
+        window.onload = function(){
+            console.log('here')
+            var table = document.getElementById("table")
+        }
+
+
+        function addNewResponse(){
+            var row = table.insertRow(count)
+            var cell1 = row.insertCell(0)
+            var cell2 = row.insertCell(1)
+
+            var inputElement = document.createElement("input");
+            inputElement.setAttribute("type", "text")
+            inputElement.setAttribute("class", "form-control")
+            inputElement.setAttribute("id", "response" + count.toString())
+            inputElement.setAttribute("name", "response" + count.toString())
+            inputElement.setAttribute("placeholder", "Response ... ")
+
+            var deleteButton = document.createElement('button')
+            deleteButton.setAttribute("type", "button")
+            deleteButton.setAttribute("class", "btn btn-danger")
+            deleteButton.setAttribute("onclick", "remove(" + count.toString() + ")")
+            deleteButton.innerHTML = "Remove"
+
+            cell1.appendChild(inputElement) 
+            cell2.appendChild(deleteButton) 
+            count+=1
+        }
+
+block admin-page 
+
+    a(href="/admin") <<< Back to questions
+
+    h1= title 
+      
+    form(action="/admin/newQuestion" id = "form" method="POST")
+        .form-group
+            label(for="") Question
+            if question
+                input(style="display: none" name="question_id" value= question_id)
+                input.form-control(type="text" id="question" name='question' value= question placeholder="Question ... ")
+            else
+                input.form-control(type="text" id="question" name="question" placeholder="Question ... ")
+
+
+        h4 Question type: 
+        select.custom-select(id="question-type", name="question_type")
+            option(selected) Select question type
+            option(value="0") Multiple choice
+            option(value="1") Single choice
+
+        br
+        h4 Response choices
+        table.table(id="table")
+            tbody
+                if responseArray
+                    each response,index in responseArray
+                        tr
+                            td 
+                                input.form-control(type='text' id=response.id name="response"+index value= response.response placeholder="Response ...")
+                            td 
+                                button.btn.btn-danger(onclick="delete(" + response.id + ")") Remove
+                tr
+                    td 
+                        input.form-control(type='text' id='response0' name="response0" placeholder="Response ...")
+                    td 
+                        button.btn.btn-danger(onclick="delete(0)") Remove
+        button.btn.btn-primary(type='button' onclick = 'addNewResponse()') Add Response
+        button.btn.btn-warning(type='submit' style='margin-left: 50px') Save

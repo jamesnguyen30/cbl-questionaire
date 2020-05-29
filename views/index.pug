@@ -1,0 +1,64 @@
+extends layout
+
+block script
+  script. 
+    window.onload = function(){
+
+    }
+
+    function changeToSelectedColor(id){
+      var choiceElement = document.getElementById(id) 
+      if(choiceElement.style.backgroundColor == "red"){
+        choiceElement.style.backgroundColor = "white"
+      } else {
+        choiceElement.style.backgroundColor = "red"
+      }
+    }
+
+block content
+  .container-fluid(style="padding-top: 10px; text-align: center; max-width: 1000px; ")
+      .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false")
+        ol.carousel-indicators
+          each _, count in Array(questions.length) 
+            if count == 0
+              li.active(data-target="#carouseIndicators" data-slide-to="0")
+            else
+              li(data-target="#carouseIndicators" data-slide-to=count)
+        .carousel-inner(style="margin:10px;" )
+            each question, question_index in questions
+              .container-fluid
+              if question_index == 0
+                .carousel-item.active
+                  .cbl-question-jumbotron(style="height: 80vh")
+                      .cbl-question
+                          h1= question.question
+                      .cbl-response
+                          if question.question_type == 0
+                            h6 You can pick multiple answers 
+                          if question.question_type == 1 
+                            h6 You can only pick one answer 
+
+                          each response,index in question.responses
+                              .container-fluid
+                                  .cbl-choice(id="question" + question_index + "response"+index onclick="changeToSelectedColor('question" +question_index+ "response"+index+"')")
+                                      h3= response.response 
+              else
+                .carousel-item
+                  .cbl-question-jumbotron(style="height: 80vh")
+                      .cbl-question(id="question")
+                          h1= question.question
+                      .cbl-response(id="response")
+                          if question.question_type == 0
+                            h6 You can pick multiple answers 
+                          if question.question_type == 1 
+                            h6 You can only pick one answer 
+                          each response,index in question.responses
+                              .container-fluid
+                                  .cbl-choice(id="question" + question_index + "response"+index onclick="changeToSelectedColor('question" +question_index+ "response"+index+"')")
+                                      h3= response.response 
+        a.page-prev-button.btn.btn-primary(href="#carouseIndicators" role="button" data-slide="prev")
+            span < Previous
+
+        a.page-next-button.btn.btn-primary(href="#carouseIndicators" role="button" data-slide="next")
+            span Next >
+

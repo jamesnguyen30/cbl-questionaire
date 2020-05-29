@@ -1,0 +1,74 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.cbl-question-jumbotron{
+  background-color: grey;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right:20px;
+  background-image: linear-gradient(#f0f0f0, #d6d6d6);
+}
+
+.cbl-ml-result{
+  padding-top: 50px;
+  text-align: center;
+}
+
+.cbl-question{
+  padding-top: 50px;
+  text-align: center;
+  min-height: 200px;
+}
+
+.cbl-choice{
+  background-color: white;
+  border-radius: 10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-left: 200px;
+  margin-right: 200px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px
+}
+
+.cbl-choice:hover{
+  background-color: gray;
+}
+
+.cbl-response{
+  text-align: center;
+  min-height: 100px; 
+}
+
+.login-window{
+  background-color: white;
+  position: relative;
+  top: 100px;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px
+}
+
+.page-prev-button{
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  z-index: 1;
+}
+.page-next-button{
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  z-index: 1;
+}

@@ -1,0 +1,55 @@
+extends admin
+block script
+    script.
+        window.onload = function(){
+            var newQuestionButton = document.getElementById("addNewButton")
+            console.log("here")
+
+        }
+
+
+block admin-page
+    form(action="/admin/newQuestion", method="GET")
+        button.btn.btn-primary(type="submit" id="addNewButton") Add new question
+    br
+    br
+
+    table-y.scrollbar(id="quesions")
+        table.table.table-striped
+            thead
+                tr
+                    th(scope='col') Number 
+                    th(scope='col') Question
+                    th(scope='col') Question Type 
+                    th(scope='col')   
+                    th(scope='col')   
+            
+            tbody
+                each element,index in data
+                    tr
+                        th(scope='row')= index + 1 
+                        td
+                            a(href="/admin/question/" + element.id)= element.question
+                        td
+                            .dropdown
+                                button.btn.btn-primary.dropdown-toggle(type="button", data-toggle="dropdown", aria-haspopup="true",aria-expanded="false" id="datatype1") Question type 
+                                .dropdown-menu
+                                    button.dropdown-item(type="button") Multiple Choice 
+                                    button.dropdown-item(type="button") Free Response 
+                        td
+                            form(action="/admin/update/"+element.id method='post')
+                                button.btn.btn-warning(type='submit') Update 
+                        td
+                            form(action="/admin/delete/"+element.id method='post')
+                                button.btn.btn-danger(type='submit') Delete
+                    // tr
+                        // th(scope='row') 2 
+                        // td(id="question2")
+                            // a(href="#") Something here is very big that the small table row cannot contain it 
+                        // td
+                            // .dropdown
+                                // button.btn.btn-primary.dropdown-toggle(type="button", data-toggle="dropdown", aria-haspopup="true",aria-expanded="false" id="datatype2") Data type 
+                                // .dropdown-menu
+                                    // button.dropdown-item(type="button") Multiple Choice 
+                                    // button.dropdown-item(type="button") Free Response 
+            

@@ -101,6 +101,8 @@ router.post('/newQuestion', async (req,res,next)=>{
           })
         }
       }
+
+      res.redirect("/admin")
     }
   })
 })

@@ -8,10 +8,10 @@ block script
 
     function changeToSelectedColor(id){
       var choiceElement = document.getElementById(id) 
-      if(choiceElement.style.backgroundColor == "red"){
+      if(choiceElement.style.backgroundColor == "rgb(46, 174, 255)"){
         choiceElement.style.backgroundColor = "white"
       } else {
-        choiceElement.style.backgroundColor = "red"
+        choiceElement.style.backgroundColor = "rgb(46, 174, 255)"
       }
     }
 
@@ -30,8 +30,8 @@ block content
               if question_index == 0
                 .carousel-item.active
                   .cbl-question-jumbotron(style="height: 80vh")
-                      .cbl-question
-                          h1= question.question
+                      .cbl-question(style="margin-left: 50px; margin-right: 50px;")
+                          h1(style="margin-top: 30px")= question.question
                       .cbl-response
                           if question.question_type == 0
                             h6 You can pick multiple answers 
@@ -45,8 +45,8 @@ block content
               else
                 .carousel-item
                   .cbl-question-jumbotron(style="height: 80vh")
-                      .cbl-question(id="question")
-                          h1= question.question
+                      .cbl-question(style="margin-left: 50px; margin-right: 50px;")
+                          h1(style="margin-top: 30px")= question.question
                       .cbl-response(id="response")
                           if question.question_type == 0
                             h6 You can pick multiple answers 

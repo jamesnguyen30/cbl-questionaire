@@ -11,7 +11,7 @@ a {
   border-radius: 10px;
   margin-left: 20px;
   margin-right:20px;
-  background-image: linear-gradient(#f0f0f0, #d6d6d6);
+  background-image: linear-gradient(#f3f2f2, #e2e0e0);
 }
 
 .cbl-ml-result{
@@ -39,7 +39,7 @@ a {
 }
 
 .cbl-choice:hover{
-  background-color: gray;
+  background-color: #7DB6FF;
 }
 
 .cbl-response{

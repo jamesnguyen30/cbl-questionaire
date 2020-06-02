@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var question = require("../models/question.js")
 var response = require('../models/response.js')
+var record = require('../models/record.js')
+
 
 /* GET users listing. */
 router.get('/login', function(req, res, next) {
@@ -46,6 +48,37 @@ router.get('/question/:questionId', (req,res,next)=>{
     }
   }) 
 })
+
+router.get("/summary", (req,res,next)=>{
+  //var now = new Date()
+  var now = new Date("05-01-2020")
+  var currentMonth = now.getMonth()+1
+  var month = now.toLocaleString('default', {month: 'long'})
+
+  var currentYear = now.getFullYear()
+  record.countResponsesByMonth(currentMonth,currentYear,(err,data)=>{
+    if(err){
+      console.log("error :", err)
+      res.send("Error! Check log for detail")
+    } else {
+      var count = []
+      var date = []
+      data.forEach((record)=>{
+        count.push(record.total) 
+        date.push(record.date.getTime()) 
+      })
+
+      res.render("admin-summary", 
+      { 
+        label: month + " " + currentYear + " Monthly Responses",
+        count:JSON.stringify(count), 
+        date: JSON.stringify(date)})
+    }
+  })
+
+})
+
+
 
 router.post('/delete/:questionId', (req,res,next)=>{
   console.log('here')

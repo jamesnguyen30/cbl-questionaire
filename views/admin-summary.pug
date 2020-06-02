@@ -1,0 +1,22 @@
+extends admin
+
+block script
+    script. 
+        label="#{label}"
+        count="#{count}"
+        date="#{date}"
+
+    script(src='/javascripts/reportChart.js')
+
+block admin-page
+    // form(action="/populateRecords" method ="get")
+        // button(type="submit" disabled) Populate record table 
+    // .btn-toolbar(role='toolbar')
+        // .btn-group.mr-2(role="group")
+            // button.btn.btn-primary(type="button") Weekly
+            // button.btn.btn-primary(type="button") Monthly 
+            // button.btn.btn-primary(type="button") Yearly 
+            // button.btn.btn-primary(type="button") Custom
+
+    
+    canvas(id="reportChart" width="400" height="200")

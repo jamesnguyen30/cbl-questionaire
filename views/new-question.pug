@@ -64,12 +64,8 @@ block admin-page
                         tr
                             td 
                                 input.form-control(type='text' id=response.id name="response"+index value= response.response placeholder="Response ...")
-                            td 
-                                button.btn.btn-danger(onclick="delete(" + response.id + ")") Remove
                 tr
                     td 
                         input.form-control(type='text' id='response0' name="response0" placeholder="Response ...")
-                    td 
-                        button.btn.btn-danger(onclick="delete(0)") Remove
         button.btn.btn-primary(type='button' onclick = 'addNewResponse()') Add Response
         button.btn.btn-warning(type='submit' style='margin-left: 50px') Save

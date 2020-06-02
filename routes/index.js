@@ -10,6 +10,14 @@ function generateRandomNumber(){
   return Math.round(Math.random() * 100000000) 
 }
 
+function convertDateToString(dateObj){
+  //convert javascript date object to string with format: yyyy-mm-dd
+  var yyyy = dateObj.getFullYear()
+  var mm = dateObj.getMonth()
+  var dd = dateObj.getDate()
+  return yyyy + "-" + mm + "-" + dd
+}
+
 router.get('/', async function(req, res, next) {
   var questions = []
   await new Promise(result=>{
@@ -109,5 +117,40 @@ router.post("/responseSubmit", (req,res,next)=>{
   res.redirect('/')
 })
 
+router.get("/populateRecords", (req,res,next)=>{
+
+  var questionId = 38;
+  var responseId = 8;
+  
+  var sampleDate = new Date()
+
+  //30 days 
+  var days = 30 
+  for(var i =0;i<days;i++){
+
+    sampleDate.setDate(sampleDate.getDate()+1)
+    console.log(convertDateToString(sampleDate))
+    var randomCount = Math.round(Math.random()*10)
+    console.log(randomCount)
+
+    for(var j = 0;j<randomCount;j++){
+      var randomUserId = generateRandomNumber()
+      var newRecord = {
+        question_id: questionId,
+        response_id: responseId,
+        recorded_date: convertDateToString(sampleDate)
+      } 
+
+      record.insert(newRecord,randomUserId, (err,result)=>{
+        if(err){
+          console.log("error :", err)
+          return;
+        } else {
+          console.log("Insert record successfully")
+        }
+      })
+    }
+  }
+})
 
 module.exports = router;

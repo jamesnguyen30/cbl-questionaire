@@ -1,6 +1,6 @@
 var mysql = require("mysql")
 
-var local = false
+var local = true 
 
 if(local){
     var connection = mysql.createConnection({
@@ -16,7 +16,6 @@ if(local){
         }
     });
 } else {
-
     var connection = mysql.createPool({
         host:"us-cdbr-east-05.cleardb.net",
         user:"bcb1a09ba77303",

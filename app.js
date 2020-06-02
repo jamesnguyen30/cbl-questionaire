@@ -10,6 +10,7 @@ var app = express();
 
 var questions = require("./models/question.js")
 var responses = require("./models/response.js")
+var records = require("./models/record")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +27,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 //Create tables
 //questions.createTable()
 //responses.createTable()
+//records.createTable()
+
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);

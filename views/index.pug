@@ -2,8 +2,11 @@ extends layout
 
 block script
   script. 
-    window.onload = function(){
 
+    var counter = 0;
+    var previousCheckedId = "" 
+
+    window.onload = function(){
     }
 
     function changeToSelectedColor(id){
@@ -15,47 +18,66 @@ block script
       }
     }
 
-block content
-  .container-fluid(style="padding-top: 10px; text-align: center; max-width: 1000px; ")
-      .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false")
-        ol.carousel-indicators
-          each _, count in Array(questions.length) 
-            if count == 0
-              li.active(data-target="#carouseIndicators" data-slide-to="0")
-            else
-              li(data-target="#carouseIndicators" data-slide-to=count)
-        .carousel-inner(style="margin:10px;" )
-            each question, question_index in questions
-              .container-fluid
-              if question_index == 0
-                .carousel-item.active
-                  .cbl-question-jumbotron(style="height: 80vh")
-                      .cbl-question(style="margin-left: 50px; margin-right: 50px;")
-                          h1(style="margin-top: 30px")= question.question
-                      .cbl-response
-                          if question.question_type == 0
-                            h6 You can pick multiple answers 
-                          if question.question_type == 1 
-                            h6 You can only pick one answer 
+    function checkButtonClicked(id){
+      responseInput = document.getElementById(id).childNodes[0]
+      if(responseInput.checked==true){
+        responseInput.checked = false 
+      } else {
+        responseInput.checked = true
+      }
+    }
 
+    function radioButtonClicked(id){
+      var responseInput = document.getElementById(id).childNodes[0];
+      responseInput.checked = true
+    }
+
+block content
+  button.btn.btn-primary(onclick="test()") here
+  .container-fluid(style="padding-top: 10px; text-align: center; max-width: 1000px; ")
+    .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false")
+      ol.carousel-indicators
+        each _, count in Array(questions.length + 1) 
+          if count == 0
+            li.active(data-target="#carouseIndicators" data-slide-to="0")
+          else
+            li(data-target="#carouseIndicators" data-slide-to=count)
+      .carousel-inner(style="margin:10px;" )
+        form(action="/responseSubmit" method="post")
+          .carousel-item.active
+            .cbl-question-jumbotron(style="height: 80vh")
+                .cbl-question(style="margin-left: 50px; margin-right: 50px;")
+                    h1(style="margin-top: 30px") Hello, this is COVID 19 questionaire from CBL
+          each question, question_index in questions
+            .carousel-item
+              .cbl-question-jumbotron(style="height: 80vh")
+                  .cbl-question(style="margin-left: 50px; margin-right: 50px;")
+                      h1(style="margin-top: 30px")= question.question
+                  .cbl-response(id="response")
+                      if question.question_type == 0
+                        h6 You can pick multiple answers
+                        fieldset
                           each response,index in question.responses
-                              .container-fluid
-                                  .cbl-choice(id="question" + question_index + "response"+index onclick="changeToSelectedColor('question" +question_index+ "response"+index+"')")
-                                      h3= response.response 
-              else
-                .carousel-item
-                  .cbl-question-jumbotron(style="height: 80vh")
-                      .cbl-question(style="margin-left: 50px; margin-right: 50px;")
-                          h1(style="margin-top: 30px")= question.question
-                      .cbl-response(id="response")
-                          if question.question_type == 0
-                            h6 You can pick multiple answers 
-                          if question.question_type == 1 
-                            h6 You can only pick one answer 
+                            .form-group
+                              .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="checkButtonClicked('ques" + question_index + "_res" + index + "')")
+                                input.form-check-input.cbl-check(type="checkbox" name="question_" + question_index  value="response_" + index)
+                                label.form-check-label= response.response
+                      if question.question_type == 1 
+                        h6 You can only pick one answer 
+                        fieldset
                           each response,index in question.responses
-                              .container-fluid
-                                  .cbl-choice(id="question" + question_index + "response"+index onclick="changeToSelectedColor('question" +question_index+ "response"+index+"')")
-                                      h3= response.response 
+                            .form-group
+                              // .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
+                              .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
+                                input.form-check-input.cbl-check(type="radio" name="question_" + question_index  value="response_" + index)
+                                label.form-check-label= response.response
+          .carousel-item
+            .cbl-question-jumbotron(style="height: 80vh")
+              .cbl-question(style="margin-left: 50px; margin-right: 50px;")
+                h1(style="margin-top: 30px") Thank you for your responses !!!
+              .cbl-response(id="response")
+                button.btn.btn-primary(type="submit") Submit Response
+
         a.page-prev-button.btn.btn-primary(href="#carouseIndicators" role="button" data-slide="prev")
             span < Previous
 

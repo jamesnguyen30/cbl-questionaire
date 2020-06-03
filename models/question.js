@@ -112,4 +112,17 @@ Question.delete = (questionId, result)=>{
     })
 }
 
+Question.drop=()=>{
+    sql.query('drop table questions;', (err,result)=>{
+        if(err){
+            console.log("error :", err)
+            result(err, null)
+            return;
+        } else {
+            result(null, {message: "Dropped table questions"})
+            return;
+        }
+    })
+}
+
 module.exports = Question

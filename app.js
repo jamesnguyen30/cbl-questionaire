@@ -25,9 +25,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //Create tables
-//questions.createTable()
-//responses.createTable()
-//records.createTable()
+// questions.drop()
+// responses.drop()
+// records.drop()
+
+// questions.createTable()
+// responses.createTable()
+// records.createTable()
 
 
 app.use('/', indexRouter);

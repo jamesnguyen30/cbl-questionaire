@@ -33,7 +33,6 @@ block script
     }
 
 block content
-  button.btn.btn-primary(onclick="test()") here
   .container-fluid(style="padding-top: 10px; text-align: center; max-width: 1000px; ")
     .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false")
       ol.carousel-indicators
@@ -65,12 +64,19 @@ block content
                       if question.question_type == 1 
                         h6 You can only pick one answer 
                         fieldset
-                          each response,index in question.responses
-                            .form-group
-                              // .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
-                              .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
-                                input.form-check-input.cbl-check(type="radio" name="question_" + question_index  value="response_" + index)
-                                label.form-check-label= response.response
+                          if question.responses.length > 5
+                            .form-group.cbl-choice
+                              select.form-control(name="question_" + question_index)
+                                option(selected ) Select
+                                  each response,index in question.responses
+                                    option(value="response_" + index)= response.response
+                          else
+                            each response,index in question.responses
+                              .form-group
+                                // .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
+                                .form-check.cbl-choice(id="ques" + question_index + "_res" + index onclick="radioButtonClicked('ques" + question_index + "_res" + index + "')")
+                                  input.form-check-input.cbl-check(type="radio" name="question_" + question_index  value="response_" + index)
+                                  label.form-check-label= response.response
           .carousel-item
             .cbl-question-jumbotron(style="height: 80vh")
               .cbl-question(style="margin-left: 50px; margin-right: 50px;")

@@ -78,30 +78,22 @@ router.get("/summary", (req,res,next)=>{
 
 })
 
-
-
 router.post('/delete/:questionId', (req,res,next)=>{
   console.log('here')
-  response.deleteByQuestionId(req.params.questionId, (err, result)=>{
+  question.delete(req.params.questionId, (err, result)=>{
     if(err){
       console.log('error :', err)
       res.send('Error deleting')
     } else {
       //delete the question
-      question.delete(req.params.questionId, (err, result)=>{
-        if(err){
-          console.log('error :', err)
-        } else {
-          console.log("Question deleted")
-        }
-        res.redirect("/admin")
-      })
+      res.redirect("/admin")
     }
   })
 })
 
 router.post('/newQuestion', async (req,res,next)=>{
   console.log(req.body)
+
   var newQuestion = {
     question: req.body.question,
     //question_type: req.body.question_type
@@ -114,15 +106,25 @@ router.post('/newQuestion', async (req,res,next)=>{
     } else {
       
       var questionId = data.id
+      var group_order = 0
 
-      for(key in req.body){
-        if(key.startsWith("response")){
-          if(req.body[key]=="") 
-            continue
-          var newResponse = {
-            response: req.body[key],
-            question_id: questionId
+      if(req.body.responseArray!=''){
+        var responseArray = req.body.responseArray.split(",")
+
+        responseArray.forEach(element=>{
+          element = element.trim()
+
+          if(element==""){
+            return;
           }
+
+          var newResponse = {
+            response: element,
+            question_id: questionId,
+            group_order: group_order
+          }
+
+          group_order+=1
 
           response.insert(newResponse, (err,data)=>{
             if(err){
@@ -132,6 +134,30 @@ router.post('/newQuestion', async (req,res,next)=>{
               console.log('Response insertion successful!')
             }
           })
+        })
+      }
+      else {
+        for(key in req.body){
+          if(key.startsWith("response")){
+            if(req.body[key]=="") 
+              continue
+            var newResponse = {
+              response: req.body[key],
+              question_id: questionId,
+              group_order: group_order
+            }
+
+            group_order+=1
+
+            response.insert(newResponse, (err,data)=>{
+              if(err){
+                console.log('error :', err)
+                return;
+              } else {
+                console.log('Response insertion successful!')
+              }
+            })
+          }
         }
       }
 

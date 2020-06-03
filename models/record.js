@@ -13,8 +13,8 @@ Record.createTable = (result)=>{
         response_id int not null,\
         recorded_date date,\
         primary key(id),\
-        foreign key (question_id) references questions(id),\
-        foreign key (response_id) references responses(id)\
+        foreign key (question_id) references questions(id) on delete cascade,\
+        foreign key (response_id) references responses(id) on delete cascade\
         )", (err, res)=>{
             if(err){
                 console.log('error :', err)
@@ -64,6 +64,20 @@ Record.countResponsesByMonth=(month,year, result)=>{
         }
     })
 }
+
+Record.drop=()=>{
+    sql.query('drop table records;', (err,res)=>{
+        if(err){
+            console.log("error :", err)
+            result(err, null)
+            return;
+        } else {
+            result(null, {message: "Dropped table records"})
+            return;
+        }
+    })
+}
+
 
 module.exports = Record
 

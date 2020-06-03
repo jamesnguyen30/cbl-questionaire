@@ -1,6 +1,6 @@
 var mysql = require("mysql")
 
-var local = true 
+var local = false 
 
 if(local){
     var connection = mysql.createConnection({

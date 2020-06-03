@@ -11,14 +11,13 @@ Record.createTable = (result)=>{
         user_id int not null,\
         question_id int not null,\
         response_id int not null,\
-        recorded_date datetime,\
+        recorded_date date,\
         primary key(id),\
         foreign key (question_id) references questions(id),\
         foreign key (response_id) references responses(id)\
         )", (err, res)=>{
             if(err){
                 console.log('error :', err)
-                result(err,null);
                 return;
             } else {
                 console.log("Success")
@@ -27,7 +26,7 @@ Record.createTable = (result)=>{
 }
 
 Record.insert = (newRecord, userId, result)=>{
-    sql.query("insert into records set user_id =?, ?",[userId, newRecord],
+    sql.query("insert into records set user_id =?, ?, recorded_date=NOW()",[userId, newRecord],
      (err,res)=>{
         if(err){
             console.log("error :", err)
@@ -53,7 +52,7 @@ Record.selectLimit=(start, step, result)=>{
 }
 
 Record.countResponsesByMonth=(month,year, result)=>{
-    sql.query("select count(user_id) as total, recorded_date as date from records\
+    sql.query("select count(distinct user_id) as total, recorded_date as date from records\
     where month(recorded_date)=? and year(recorded_date)=?\
     group by day(recorded_date), recorded_date order by recorded_date;", [month,year],(err,res)=>{
         if(err){

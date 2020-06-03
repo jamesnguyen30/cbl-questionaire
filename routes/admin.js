@@ -50,8 +50,8 @@ router.get('/question/:questionId', (req,res,next)=>{
 })
 
 router.get("/summary", (req,res,next)=>{
-  //var now = new Date()
-  var now = new Date("05-01-2020")
+  var now = new Date()
+  //var now = new Date("05-01-2020")
   var currentMonth = now.getMonth()+1
   var month = now.toLocaleString('default', {month: 'long'})
 

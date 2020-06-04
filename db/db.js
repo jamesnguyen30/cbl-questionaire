@@ -14,7 +14,7 @@ if(local){
         else {
             console.log('database connected')
         }
-    });
+    }) 
 } else {
     var connection = mysql.createPool({
         host:"us-cdbr-east-05.cleardb.net",

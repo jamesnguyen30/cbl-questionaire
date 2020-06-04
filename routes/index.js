@@ -119,8 +119,8 @@ router.post("/responseSubmit", (req,res,next)=>{
 
 router.get("/populateRecords", (req,res,next)=>{
 
-  var questionId = 38;
-  var responseId = 8;
+  var questionId = 2;
+  var responseId = 5;
   
   var sampleDate = new Date()
 
@@ -128,7 +128,7 @@ router.get("/populateRecords", (req,res,next)=>{
   var days = 30 
   for(var i =0;i<days;i++){
 
-    sampleDate.setDate(sampleDate.getDate()+1)
+    sampleDate.setDate(sampleDate.getDate()-1)
     console.log(convertDateToString(sampleDate))
     var randomCount = Math.round(Math.random()*10)
     console.log(randomCount)

@@ -26,7 +26,14 @@ Record.createTable = (result)=>{
 }
 
 Record.insert = (newRecord, userId, result)=>{
-    sql.query("insert into records set user_id =?, ?, recorded_date=NOW()",[userId, newRecord],
+    var queryString = ""
+    console.log(newRecord)
+    if( newRecord["recorded_date"] != null){
+        queryString = "insert into records set user_id =?, ?"
+    } else {
+        queryString = "insert into records set user_id =?, ?, recorded_date=NOW()"
+    }
+    sql.query(queryString,[userId, newRecord],
      (err,res)=>{
         if(err){
             console.log("error :", err)
@@ -37,7 +44,6 @@ Record.insert = (newRecord, userId, result)=>{
         }
     })
 }
-
 Record.selectLimit=(start, step, result)=>{
     sql.query("select * from records limit ?,?",
     [start * step, step],
@@ -65,7 +71,7 @@ Record.countResponsesByMonth=(month,year, result)=>{
     })
 }
 
-Record.drop=()=>{
+Record.drop=(result)=>{
     sql.query('drop table records;', (err,res)=>{
         if(err){
             console.log("error :", err)

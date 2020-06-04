@@ -46,7 +46,17 @@ block content
           .carousel-item.active
             .cbl-question-jumbotron(style="height: 80vh")
                 .cbl-question(style="margin-left: 50px; margin-right: 50px;")
-                    h1(style="margin-top: 30px") Hello, this is COVID 19 questionaire from CBL
+                  .container-fluid(style="margin-top:50px;")
+                    h1 This is a COVID 19 assessment tool
+                    br
+                    h6 Visit our Computational Biomedicine Lab homepage 
+                    a(href='https://uh.edu/cbl/') Computational Biomedicine Lab
+                    br
+                    br
+                    h5 This tool will help you assess your symptoms and determine if you're a good candidate for a coronavirus disease 2019 (COVID-19) test in your home community  
+                    br
+                    h5 Information about COVID-19 is constantly changing. And the level of COVID-19 activity varies by community, as does the availability of testing. For current updates on COVID-19 and details on testing and other health measures in your state, check with your local public health agency and visit the CDC website at : 
+                    a(href="https://www.cdc.gov/") Center for Disease Control
           each question, question_index in questions
             .carousel-item
               .cbl-question-jumbotron(style="height: 80vh")
@@ -65,7 +75,7 @@ block content
                         h6 You can only pick one answer 
                         fieldset
                           if question.responses.length > 5
-                            .form-group.cbl-choice
+                            .form-group.cbl-select
                               select.form-control(name="question_" + question_index)
                                 option(selected ) Select
                                   each response,index in question.responses
@@ -80,7 +90,9 @@ block content
           .carousel-item
             .cbl-question-jumbotron(style="height: 80vh")
               .cbl-question(style="margin-left: 50px; margin-right: 50px;")
-                h1(style="margin-top: 30px") Thank you for your responses !!!
+                h1(style="margin-top: 30px") Thank you for your response !!!
+                br
+                h6 Your data will be saved anonymously and will not be sold to any third-party  
               .cbl-response(id="response")
                 button.btn.btn-primary(type="submit") Submit Response
 

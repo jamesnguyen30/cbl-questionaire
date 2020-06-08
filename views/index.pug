@@ -32,9 +32,26 @@ block script
       responseInput.checked = true
     }
 
+    // function createEmptyResponseAlert(){
+      // parentContainer = document.getElementById("parent_container")
+
+      // var alertDiv = document.createElement("div")
+      // alertDiv.classList.add("alert")
+      // alertDiv.classList.add("alert-warning")
+      // alertDiv.classList.add("alert-dismissable")
+      // alertDiv.classList.add("fade")
+      // alertDiv.classList.add("show")
+      // alertDiv.classList.add("cbl-warning")
+      // var alertHeading = document.createElement("h7")
+      // alertHeading = document.createTextNode("Error: this question cannot be empty")
+
+      // alertDiv.appendChild(alertHeading)
+      // parentContainer.insertBefore(alertDiv, parentContainer.childNodes[0])
+    // }
+
 block content
-  .container-fluid(style="padding-top: 10px; text-align: center; max-width: 1000px; ")
-    .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false")
+    container-fluid(id="parent_container" style="min-width: 100wh; position: relative")
+    .carousel.slide(data-ride="carousel" id="carouseIndicators", data-interval="false", data-wrap = "false" style="padding-top: 30px; text-align: center; max-width: 1000px;margin-left: auto; margin-right: auto")
       ol.carousel-indicators
         each _, count in Array(questions.length + 1) 
           if count == 0
@@ -59,7 +76,7 @@ block content
                     a(href="https://www.cdc.gov/") Center for Disease Control
           each question, question_index in questions
             .carousel-item
-              .cbl-question-jumbotron(style="height: 80vh")
+              .cbl-question-jumbotron(style="min-height: 80vh")
                   .cbl-question(style="margin-left: 50px; margin-right: 50px;")
                       h1(style="margin-top: 30px")= question.question
                   .cbl-response(id="response")
@@ -77,7 +94,7 @@ block content
                           if question.responses.length > 5
                             .form-group.cbl-select
                               select.form-control(name="question_" + question_index)
-                                option(selected ) Select
+                                option(selected) Select 
                                   each response,index in question.responses
                                     option(value="response_" + index)= response.response
                           else
@@ -99,6 +116,6 @@ block content
         a.page-prev-button.btn.btn-primary(href="#carouseIndicators" role="button" data-slide="prev")
             span < Previous
 
-        a.page-next-button.btn.btn-primary(href="#carouseIndicators" role="button" data-slide="next")
+        a.page-next-button.btn.btn-primary(href="#carouseIndicators" id = "next_slide" role="button" data-slide="next")
             span Next >
 

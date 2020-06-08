@@ -68,10 +68,15 @@ router.post("/responseSubmit", (req,res,next)=>{
   console.log("user_id ",generateRandomNumber())
   console.log("question data ", questionData)
 
+  console.log(req.body)
+
   var randomUserId = generateRandomNumber()
 
   for(var key of Object.keys(req.body)){
     console.log(key + " : " + req.body[key])
+    if(req.body[key] == "Select"){
+      continue;
+    }
     var questionIndex = parseInt(key.split("_")[1])
     var question = questionData[questionIndex]
     var questionId = question.id
